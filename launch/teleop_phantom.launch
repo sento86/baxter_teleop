@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Phantom node -->
+    <include file="$(find phantom)/launch/phantom.launch"/>
+
+    <!-- Teleoperation node --> 
+    <node pkg="baxter_teleop" type="baxter_phantom" name="baxter_teleop" output="screen">
+      <!-- Axis and buttons parameters -->
+      <rosparam file="$(find baxter_teleop)/config/phantom.yaml" command="load" />
+      <!-- Twist msg name -->
+      <param name="cmd_vel_topic" value="cmd_vel" type="string"/>
+      <param name="cmd_vel_stmp_topic" value="cmd_vel/stamped" type="string"/>
+      <param name="cmd_pose_topic" value="cmd_pose" type="string"/>
+      <param name="cmd_pose_stmp_topic" value="cmd_pose/stamped" type="string"/>
+      <param name="deadman_no_publish" value="false" type="bool"/>
+      <!-- Remap joystick message -->
+      <remap from="/joy" to="/phantom/joystick" />
+    </node>
+
+</launch>
+
